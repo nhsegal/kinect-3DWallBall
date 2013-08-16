@@ -16,19 +16,23 @@ class Ball {
 
   void move() {
     if ((pos.x-r) < 0 || (pos.x+r) > width && (in == true)) {
+       boing.play();
+      boing.rewind();
       vel.x = -vel.x;
       in = false;
-      boing.play();
     }
     if ((pos.y-r) < 0 || (pos.y+r) > width && (in == true )) {
-      vel.y = -vel.y;
       boing.play();
+      boing.rewind();
+      vel.y = -vel.y;     
       in = false;
     }
     if ((pos.z-r) < -width && (in == true)) {
+      boing.play();
+      boing.rewind();
       vel.z = -vel.z;
       in = false;
-      boing.play();
+      
     }
     else if ( (pos.x-r > 0) && (pos.x+r < width) && (pos.y-r > 0) && (pos.y+r < width) && (pos.z-r > -width) && (pos.z+r < 0)) {
       in = true;
@@ -45,6 +49,7 @@ class Ball {
       vel.y = vel.y + 2*(p.pos.y - p.posP.y);
       vel.x = vel.x + 2*(p.pos.x - p.posP.x);
       boing.play();
+      boing.rewind();
     }
   }
 

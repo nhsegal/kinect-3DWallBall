@@ -1,4 +1,4 @@
-import pitaru.sonia_v2_9.*;
+import ddf.minim.*;
 import SimpleOpenNI.*;
 
 SimpleOpenNI kinect;
@@ -6,13 +6,15 @@ Ball b;
 Paddle p;
 PVector v;
 boolean resetSwitch = true;
-Sample boing;
+Minim minim;
+AudioSnippet boing;
 
 void setup() {
-  Sonia.start(this);
-  boing = new Sample("button-10.wav");
+  size(800, 800, P3D);
+  Minim minim = new Minim(this);
+  boing = minim.loadSnippet("button-10.wav");
   PVector pos_init = new PVector(width/2, height/2, -300);
-  PVector vel_init = new PVector(random(-4, 4), random(-4, 4), random(-8, 8));  
+  PVector vel_init = new PVector(random(-10, 10), random(-8, 8), random(-10, 10));  
   b = new Ball(pos_init, vel_init); 
   p = new Paddle(new PVector(width/2, 9*height/10), 150); 
 
@@ -20,10 +22,10 @@ void setup() {
   kinect.enableDepth();
   kinect.enableUser( SimpleOpenNI.SKEL_PROFILE_ALL);
 
-  size(800, 800, P3D);
+  
   stroke(0);
   strokeWeight(1);
-  sphereDetail(10);
+  sphereDetail(8);
 }
 
 void draw() {
@@ -116,13 +118,13 @@ void reset() {
   b.pos.x = width/2;
   b.pos.y = height/2;
   b.pos.z = -width/2;
-  b.vel.x = random(-5, 5);
-  b.vel.y = random(-5, 5);
-  b.vel.z = random(-9, 9);
+  b.vel.x = random(-10, 10);
+  b.vel.y = random(-8, 8);
+  b.vel.z = random(-11, 11);
 }
 
 public void stop() {
-  Sonia.stop();
+  boing.close();
   super.stop();
 }
 
